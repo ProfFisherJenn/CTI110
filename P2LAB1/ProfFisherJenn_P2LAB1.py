@@ -8,7 +8,7 @@ radius = float(input("Enter your desired radius: "))
 diameter = radius * 2
 circumference = 2 * math.pi * radius
 area = math.pi * (radius ** 2)
-print ("What is the radius of the circle? " + str(radius))
-print ("The diameter or the circle is: " + str(diameter))
-print ("The circumference of the circle is: " + str(circumference))
-print ("The area of the circle is: " + str(area))
+print (f"What is the radius of the circle? {radius}")
+print (f"The diameter of the circle is: {diameter:.1f}")
+print (f"The circumference of the circle is: {circumference:.2f}")
+print (f"The area of the circle is: {area:.3f}")
