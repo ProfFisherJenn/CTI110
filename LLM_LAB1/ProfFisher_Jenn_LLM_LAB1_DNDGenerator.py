@@ -273,22 +273,13 @@ def main():
     prof_bonus = proficiency_bonus(level)
     print(f"\n  ✔  Level {level}  |  Proficiency Bonus: +{prof_bonus}")
 
-    # ── NAME ───────────────────────────────────
-    section("STEP 4 · CHARACTER NAME")
-    while True:
-        name = input("  Enter character name: ").strip()
-        if name:
-            break
-        print("  ✖  Name cannot be blank.")
-    print(f"\n  ✔  Name: {name}")
-
     # ── ALIGNMENT ──────────────────────────────
-    section("STEP 5 · ALIGNMENT")
+    section("STEP 4 · ALIGNMENT")
     alignment = pick_from_list(ALIGNMENTS, "Enter alignment number")
     print(f"\n  ✔  Alignment: {alignment}")
 
     # ── BACKGROUND ─────────────────────────────
-    section("STEP 6 · BACKGROUND")
+    section("STEP 5 · BACKGROUND")
     bg_list = sorted(BACKGROUNDS.keys())
     background = pick_from_list(bg_list, "Enter background number")
     bg_data = BACKGROUNDS[background]
@@ -297,7 +288,7 @@ def main():
     print(f"     Feature: {bg_data['trait']}")
 
     # ── ABILITY SCORE ROLLS ────────────────────
-    section("STEP 7 · ABILITY SCORE ROLLS")
+    section("STEP 6 · ABILITY SCORE ROLLS")
     print("  Roll 4d6, drop lowest — enter your six scores.")
     print("  They will be assigned to stats in order:")
     print("  Strength · Dexterity · Constitution · Intelligence · Wisdom · Charisma\n")
@@ -321,7 +312,7 @@ def main():
         final_scores[stat] = base_scores[stat] + bonuses.get(stat, 0)
 
     # ── SKILL PROFICIENCIES ────────────────────
-    section("STEP 8 · SKILL PROFICIENCIES")
+    section("STEP 7 · SKILL PROFICIENCIES")
     skill_pool = cls_data["skills"]
     skill_count = cls_data["skill_count"]
 
@@ -337,6 +328,17 @@ def main():
     # Add background skills (no duplication)
     all_proficiencies = list(dict.fromkeys(bg_data["skills"] + chosen_skills))
     print(f"\n  ✔  All skill proficiencies: {', '.join(all_proficiencies)}")
+
+    # ── NAME ───────────────────────────────────
+    section("STEP 8 · CHARACTER NAME")
+    print("  [Future web version: LLM name generator will suggest names")
+    print(f"   based on your {race} {cls}, {alignment} {background}]\n")
+    while True:
+        name = input("  Enter character name: ").strip()
+        if name:
+            break
+        print("  ✖  Name cannot be blank.")
+    print(f"\n  ✔  Name: {name}")
 
     # ── HP CALCULATION ─────────────────────────
     hit_die = cls_data["hit_die"]
