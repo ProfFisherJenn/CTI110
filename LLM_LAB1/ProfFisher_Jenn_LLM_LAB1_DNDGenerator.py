@@ -178,11 +178,21 @@ def section(title):
     print(f"  {title}")
     divider()
 
-def pick_from_list(items, prompt, label="Option"):
+def pick_from_list(items, prompt, label="Option", groups=None):
+    """groups: list of (header, [item, ...]) tuples for grouped display."""
     print()
-    for i, item in enumerate(items, 1):
-        print(f"  [{i:>2}] {item}")
-    print()
+    if groups:
+        counter = 1
+        for header, members in groups:
+            print(f"  — {header} —")
+            for item in members:
+                print(f"  [{counter:>2}] {item}")
+                counter += 1
+            print()
+    else:
+        for i, item in enumerate(items, 1):
+            print(f"  [{i:>2}] {item}")
+        print()
     while True:
         raw = input(f"  {prompt}: ").strip()
         if raw.isdigit() and 1 <= int(raw) <= len(items):
@@ -228,8 +238,16 @@ def main():
 
     # ── RACE ──────────────────────────────────
     section("STEP 1 · SELECT YOUR RACE")
-    race_list = sorted(RACES.keys())
-    race = pick_from_list(race_list, "Enter race number")
+    race_groups = [
+        ("Human",                      ["Human"]),
+        ("Elf",                        ["Elf", "High Elf", "Wood Elf", "Dark Elf"]),
+        ("Dwarf",                      ["Dwarf", "Hill Dwarf", "Mountain Dwarf"]),
+        ("Halfling",                   ["Halfling", "Lightfoot Halfling", "Stout Halfling"]),
+        ("Gnome",                      ["Gnome", "Forest Gnome", "Rock Gnome"]),
+        ("Half-Breeds & Planetouched", ["Half-Elf", "Half-Orc", "Tiefling", "Dragonborn"]),
+    ]
+    race_list = [r for _, members in race_groups for r in members]
+    race = pick_from_list(race_list, "Enter race number", groups=race_groups)
     race_data = RACES[race]
     bonuses = {k:v for k,v in race_data.items() if k in STATS}
     if "extra" in race_data:
