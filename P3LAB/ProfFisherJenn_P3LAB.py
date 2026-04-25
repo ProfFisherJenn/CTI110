@@ -40,7 +40,7 @@ if num_dimes > 0:
     if num_dimes == 1:
         print(f"{num_dimes} dime")
     else:
-       print(f"{num_dimes} dime")
+       print(f"{num_dimes} dimes")
 if num_nickles > 0:
     if num_nickles == 1:
         print(f"{num_nickles} nickle")
