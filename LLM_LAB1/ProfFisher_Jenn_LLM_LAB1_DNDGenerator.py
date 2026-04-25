@@ -282,12 +282,13 @@ def main():
     section("STEP 7 · ABILITY SCORE ROLLS")
     print("  Roll 4d6, drop lowest — enter your six scores.")
     print("  They will be assigned to stats in order:")
-    print("  STR · DEX · CON · INT · WIS · CHA\n")
+    print("  Strength · Dexterity · Constitution · Intelligence · Wisdom · Charisma\n")
 
     base_scores = {}
     rolled_scores = []
-    for i in range(1, 7):
-        score = get_int(f"Roll {i}/6 (score 3–18)", 3, 18)
+    for i, stat in enumerate(STATS, 1):
+        full_name = STAT_NAMES[stat]
+        score = get_int(f"Roll {i}/6 — {full_name} (score 3–18)", 3, 18)
         rolled_scores.append(score)
 
     print(f"\n  Rolls entered: {rolled_scores}")
@@ -347,21 +348,22 @@ def main():
     print(f"  Hit Points:       {hp}  (d{hit_die} hit die)")
     print(f"  Proficiency Bonus: +{prof_bonus}")
     divider("─")
-    print(f"  {'STAT':<6}  {'BASE':>4}  {'RACIAL':>6}  {'FINAL':>5}  {'MOD':>4}")
-    print(f"  {'────':<6}  {'────':>4}  {'──────':>6}  {'─────':>5}  {'───':>4}")
+    print(f"  {'ABILITY':<14}  {'BASE':>4}  {'RACIAL':>6}  {'FINAL':>5}  {'MOD':>4}")
+    print(f"  {'──────────────':<14}  {'────':>4}  {'──────':>6}  {'─────':>5}  {'───':>4}")
     for stat in STATS:
         base  = base_scores[stat]
         bonus = bonuses.get(stat, 0)
         final = final_scores[stat]
         mod   = mod_str(final)
         bonus_disp = f"+{bonus}" if bonus > 0 else ("—" if bonus == 0 else str(bonus))
-        print(f"  {stat:<6}  {base:>4}  {bonus_disp:>6}  {final:>5}  {mod:>4}")
+        full_name = STAT_NAMES[stat]
+        print(f"  {full_name:<14}  {base:>4}  {bonus_disp:>6}  {final:>5}  {mod:>4}")
     divider("─")
     print(f"  Racial Traits:")
     for trait in race_data.get("traits", []):
         print(f"    • {trait}")
     divider("─")
-    print(f"  Class Saves:       {', '.join(cls_data['saves'])}")
+    print(f"  Class Saves:       {', '.join(STAT_NAMES[s] for s in cls_data['saves'])}")
     print(f"  Skill Proficiencies:")
     for sk in all_proficiencies:
         print(f"    • {sk}")
