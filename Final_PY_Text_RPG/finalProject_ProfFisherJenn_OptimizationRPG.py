@@ -1,5 +1,5 @@
-# Your Name
-# Date
+# Jennifer Fisher
+# 5/5/26
 # Final Project — OPTIMIZATION™
 # A text-based game set inside AlgoCratic Futures™, a satirical dystopian megacorporation
 # run by The Algorithm — which is secretly just a BASIC random number generator written
