@@ -9,6 +9,8 @@
 
 import random
 import time
+import json
+import os
 
 # ============================================================
 # PLAYER STATE
@@ -900,7 +902,20 @@ def get_choice(max_choice):
     """Get a valid numeric choice from the player. Also listens for xyzzy."""
     while True:
         raw = input(f"\n  Your choice (1-{max_choice}): ").strip()
-
+        # Emergency Shut Down Code
+        if raw.lower() == "azed":
+            print("\n  >> AZED protocol recognized.")
+            confirm = input("  >> Terminate current session? All unsaved progress lost. (yes/no): ").strip().lower()
+            if confirm == "yes":
+                slow_print("  >> Session terminated by operative request.")
+                slow_print("  >> The Algorithm notes the departure time.")
+                slow_print("  >> Signal confirmed. Echo complete.")
+                algorithm_pause(1)
+                import sys
+                sys.exit(0)
+            else:
+                slow_print("  >> AZED cancelled. Proceeding.")
+                continue
         # Easter egg — Bob's secret
         if raw.lower() == "xyzzy":
             divider()
@@ -931,6 +946,62 @@ def get_choice(max_choice):
                 print(f"  Please enter a number between 1 and {max_choice}.")
         except ValueError:
             print("  Please enter a valid number.")
+
+# ============================================================
+# SAVE & LOAD SYSTEM
+# ============================================================
+
+SAVE_FILE = "optimization_save.json"
+
+def save_game():
+    """
+    Serialize current game state to JSON file.
+    Players, round number, traitor index, NPC departments all saved.
+    """
+    state = {
+        "players": players,
+        "game_round": game_round,
+        "traitor_idx": traitor_idx,
+        "npc_departments": npc_departments,
+        "current_player_idx": current_player_idx,
+    }
+    try:
+        with open(SAVE_FILE, "w") as f:
+            json.dump(state, f, indent=2)
+        slow_print("  >> Session saved. File: optimization_save.json")
+        slow_print("  >> The Algorithm has preserved your operational data.")
+        slow_print("  >> Resume when operatives are available.")
+        slow_print("  >> The Algorithm will be here. The Algorithm is always here.")
+    except Exception as e:
+        slow_print(f"  >> Save failed. The Algorithm notes the error: {e}")
+
+def load_game():
+    """
+    Load game state from JSON file.
+    Returns True if successful, False if no save exists.
+    """
+    global players, game_round, traitor_idx, npc_departments, current_player_idx
+    if not os.path.exists(SAVE_FILE):
+        return False
+    try:
+        with open(SAVE_FILE, "r") as f:
+            state = json.load(f)
+        players.clear()
+        players.extend(state["players"])
+        game_round = state["game_round"]
+        traitor_idx = state["traitor_idx"]
+        npc_departments = state["npc_departments"]
+        current_player_idx = state["current_player_idx"]
+        slow_print("  >> Save file located. Restoring operative records.")
+        slow_print("  >> Previous session data loaded.")
+        slow_print(f"  >> Resuming at Round {game_round}.")
+        algorithm_speak("Welcome back. Your absence has been noted.")
+        algorithm_speak("The notation is in your file.")
+        algorithm_speak("The Algorithm provides continuity.")
+        return True
+    except Exception as e:
+        slow_print(f"  >> Load failed. File may be corrupted. Error: {e}")
+        return False
 
 # ============================================================
 # HOW TO PLAY

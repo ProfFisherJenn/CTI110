@@ -10,6 +10,8 @@
 
 import random
 import time
+import json
+import os
 
 # ============================================================
 # CONSTANTS & CONFIGURATION
@@ -809,6 +811,11 @@ def onboard_player(player_num, total_players, chosen_depts):
     slow_print("  You say: 'Whatever optimizes output.'")
     algorithm_pause(1)
     algorithm_speak("Affirmation complete. Signal confirmed. Echo complete.")
+
+    # Save/Exit
+    slow_print("  OPERATIVE NOTICE: Type 'azed' at any prompt to terminate your session.")
+    slow_print("  Type 'save' at any prompt to save and resume later.")
+    algorithm_pause(0.8)
 
     # Department selection
     divider()
@@ -2669,7 +2676,7 @@ def get_choice(max_choice):
     """Get valid numeric input. Listens for xyzzy."""
     while True:
         raw = input(f"\n  Your choice (1-{max_choice}): ").strip()
-
+        
         if raw.lower() == "xyzzy":
             divider()
             slow_print("  >> A crack appears in The Algorithm's surface.", delay=0.05)
@@ -2695,6 +2702,32 @@ def get_choice(max_choice):
             algorithm_pause(1)
             continue
 
+        if raw.lower() == "azed":
+            print("\n  >> AZED protocol recognized.")
+            confirm = input("  >> Terminate current session? All unsaved progress lost. (yes/no): ").strip().lower()
+            if confirm == "yes":
+                slow_print("  >> Session terminated by operative request.")
+                slow_print("  >> The Algorithm notes the departure time.")
+                slow_print("  >> Signal confirmed. Echo complete.")
+                algorithm_pause(1)
+                import sys
+                sys.exit(0)
+            else:
+                slow_print("  >> AZED cancelled. Proceeding.")
+                continue
+
+        if raw.lower() == "save":
+            save_game()
+            confirm = input("  >> Exit after saving? (yes/no): ").strip().lower()
+            if confirm == "yes":
+                slow_print("  >> Session terminated. Resume with 'load' option at startup.")
+                algorithm_pause(1)
+                import sys
+                sys.exit(0)
+            else:
+                slow_print("  >> Save complete. Continuing session.")
+                continue
+            
         if raw.lower() == "accuse":
             name = input("  Name the Traitor: ").strip()
             current = players[current_player_idx]
@@ -2905,6 +2938,62 @@ def ending_sequence():
     print()
 
 # ============================================================
+# SAVE & LOAD SYSTEM
+# ============================================================
+
+SAVE_FILE = "optimization_save.json"
+
+def save_game():
+    """
+    Serialize current game state to JSON file.
+    Players, round number, traitor index, NPC departments all saved.
+    """
+    state = {
+        "players": players,
+        "game_round": game_round,
+        "traitor_idx": traitor_idx,
+        "npc_departments": npc_departments,
+        "current_player_idx": current_player_idx,
+    }
+    try:
+        with open(SAVE_FILE, "w") as f:
+            json.dump(state, f, indent=2)
+        slow_print("  >> Session saved. File: optimization_save.json")
+        slow_print("  >> The Algorithm has preserved your operational data.")
+        slow_print("  >> Resume when operatives are available.")
+        slow_print("  >> The Algorithm will be here. The Algorithm is always here.")
+    except Exception as e:
+        slow_print(f"  >> Save failed. The Algorithm notes the error: {e}")
+
+def load_game():
+    """
+    Load game state from JSON file.
+    Returns True if successful, False if no save exists.
+    """
+    global players, game_round, traitor_idx, npc_departments, current_player_idx
+    if not os.path.exists(SAVE_FILE):
+        return False
+    try:
+        with open(SAVE_FILE, "r") as f:
+            state = json.load(f)
+        players.clear()
+        players.extend(state["players"])
+        game_round = state["game_round"]
+        traitor_idx = state["traitor_idx"]
+        npc_departments = state["npc_departments"]
+        current_player_idx = state["current_player_idx"]
+        slow_print("  >> Save file located. Restoring operative records.")
+        slow_print("  >> Previous session data loaded.")
+        slow_print(f"  >> Resuming at Round {game_round}.")
+        algorithm_speak("Welcome back. Your absence has been noted.")
+        algorithm_speak("The notation is in your file.")
+        algorithm_speak("The Algorithm provides continuity.")
+        return True
+    except Exception as e:
+        slow_print(f"  >> Load failed. File may be corrupted. Error: {e}")
+        return False
+    
+# ============================================================
 # HOW TO PLAY
 # ============================================================
 
@@ -2949,6 +3038,8 @@ def how_to_play():
   AEC always fires at game start regardless. Everyone hates sales.
 
   SECRET: Type 'xyzzy' at any input prompt.
+          Type 'azed' at any prompt to exit the game immediately.
+          Type 'save' at any prompt to save and exit for later.
 
   The Algorithm provides.
     """)
@@ -2975,7 +3066,8 @@ def main():
     print()
     print("  [1] Begin Onboarding")
     print("  [2] How to Play")
-    print("  [3] Exit")
+    print("  [3] Load Saved Game")
+    print("  [4] Exit")
     print()
 
     while True:
@@ -2987,6 +3079,13 @@ def main():
                 how_to_play()
                 break
             elif choice == 3:
+                if load_game():
+                    break  # drops into the game loop below
+                else:
+                    slow_print("  >> No save file found.")
+                    slow_print("  >> The Algorithm cannot provide what does not exist.")
+                    continue
+            elif choice == 4:
                 slow_print("\n  Voluntary departure logged. The Algorithm notes your choice.")
                 print("  Signal confirmed. Echo complete.\n")
                 return

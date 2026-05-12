@@ -1,0 +1,95 @@
+{
+  "players": [
+    {
+      "name": "s125",
+      "title": "Senior Enthusiasm Coordinator",
+      "department": "AEC",
+      "clearance": "RED",
+      "clearance_value": 1,
+      "iteration": 1,
+      "sanity": 3,
+      "loyalty": 3,
+      "abilities": {
+        "compliance": "Developing",
+        "initiative": "Surprising",
+        "presence": "Exceptional",
+        "endurance": "Developing",
+        "competence": "Developing",
+        "engagement": "Moderate"
+      },
+      "inventory": {
+        "business_cards": {
+          "desc": "Business cards listing a title two levels above actual role. +2 to first impressions. -2 if anyone checks.",
+          "uses": 3
+        },
+        "smile_tm": {
+          "desc": "SMILE\u2122 tablet. Restores 1 Sanity. Compliance Citrus flavor. The Algorithm notes your consumption rate.",
+          "uses": 1
+        }
+      },
+      "work_history": [],
+      "objective_complete": false,
+      "mission": "Promised a client a Floor 5 demo environment that is operational and fully tested. It is not operational. It has not been tested. The client arrives at 09:15. AEC considers this someone else's problem.",
+      "known_secret": "What was promised to which client and for how much. AEC would prefer to keep it that way.",
+      "is_traitor": true,
+      "traitor_revealed": false,
+      "deprecated": false,
+      "debuff": 0,
+      "rubber_duck_bonus": false,
+      "temp_clearance": null,
+      "visitor_access": false
+    },
+    {
+      "name": "Bot",
+      "title": "Lead Denial Architect",
+      "department": "CAB",
+      "clearance": "RED",
+      "clearance_value": 2,
+      "iteration": 1,
+      "sanity": 3,
+      "loyalty": 3,
+      "abilities": {
+        "compliance": "Exceptional",
+        "initiative": "Developing",
+        "presence": "Adequate",
+        "endurance": "Moderate",
+        "competence": "Moderate",
+        "engagement": "Developing"
+      },
+      "inventory": {
+        "denied_stamp": {
+          "desc": "DENIED rubber stamp (visibly well-used). Makes any denial official and unappealable for one scene.",
+          "uses": 2
+        },
+        "smile_tm": {
+          "desc": "SMILE\u2122 tablet. Restores 1 Sanity. Compliance Citrus flavor. The Algorithm notes your consumption rate.",
+          "uses": 1
+        }
+      },
+      "work_history": [],
+      "objective_complete": false,
+      "mission": "Retroactive policy violation filed against Room 7-C. DENIED ruling must be delivered before 09:00 or it becomes appealable. CAB has ORANGE clearance and can move freely on Floor 3.",
+      "known_secret": "Every policy violation ever committed by every department. The files are organized.",
+      "is_traitor": false,
+      "traitor_revealed": false,
+      "deprecated": false,
+      "debuff": 0,
+      "rubber_duck_bonus": false,
+      "temp_clearance": null,
+      "visitor_access": false
+    }
+  ],
+  "game_round": 1,
+  "traitor_idx": 0,
+  "npc_departments": [
+    "ICD",
+    "NOC",
+    "SDC",
+    "CIO",
+    "RAR",
+    "HCO",
+    "TAM",
+    "GRAY"
+  ],
+  "current_player_idx": 0
+}
