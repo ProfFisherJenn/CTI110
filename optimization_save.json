@@ -1,25 +1,25 @@
 {
   "players": [
     {
-      "name": "s125",
-      "title": "Senior Enthusiasm Coordinator",
-      "department": "AEC",
+      "name": "Jones",
+      "title": "Associate Continuity Specialist",
+      "department": "CIO",
       "clearance": "RED",
-      "clearance_value": 1,
+      "clearance_value": 2,
       "iteration": 1,
-      "sanity": 3,
+      "sanity": 2,
       "loyalty": 3,
       "abilities": {
-        "compliance": "Developing",
-        "initiative": "Surprising",
-        "presence": "Exceptional",
-        "endurance": "Developing",
-        "competence": "Developing",
+        "compliance": "Moderate",
+        "initiative": "Adequate",
+        "presence": "Adequate",
+        "endurance": "Exceptional",
+        "competence": "Moderate",
         "engagement": "Moderate"
       },
       "inventory": {
-        "business_cards": {
-          "desc": "Business cards listing a title two levels above actual role. +2 to first impressions. -2 if anyone checks.",
+        "clipboard": {
+          "desc": "Clipboard with actual current task list. Only accurate document in AlgoCratic Futures\u2122. +2 Compliant on written instructions.",
           "uses": 3
         },
         "smile_tm": {
@@ -29,9 +29,9 @@
       },
       "work_history": [],
       "objective_complete": false,
-      "mission": "Promised a client a Floor 5 demo environment that is operational and fully tested. It is not operational. It has not been tested. The client arrives at 09:15. AEC considers this someone else's problem.",
-      "known_secret": "What was promised to which client and for how much. AEC would prefer to keep it that way.",
-      "is_traitor": true,
+      "mission": "Seven departments have submitted conflicting facility requests for 09:00. CIO must reconcile them using the one truck. At least two are physically impossible. CIO is aware. The departments are not.",
+      "known_secret": "Where everything physically is and where it's going. The furniture. The equipment. The people.",
+      "is_traitor": false,
       "traitor_revealed": false,
       "deprecated": false,
       "debuff": 0,
@@ -40,26 +40,26 @@
       "visitor_access": false
     },
     {
-      "name": "Bot",
-      "title": "Lead Denial Architect",
-      "department": "CAB",
+      "name": "Smith",
+      "title": "Senior Legacy Architect",
+      "department": "ICD",
       "clearance": "RED",
       "clearance_value": 2,
       "iteration": 1,
       "sanity": 3,
       "loyalty": 3,
       "abilities": {
-        "compliance": "Exceptional",
-        "initiative": "Developing",
-        "presence": "Adequate",
-        "endurance": "Moderate",
+        "compliance": "Moderate",
+        "initiative": "Adequate",
+        "presence": "Developing",
+        "endurance": "Surprising",
         "competence": "Moderate",
-        "engagement": "Developing"
+        "engagement": "Adequate"
       },
       "inventory": {
-        "denied_stamp": {
-          "desc": "DENIED rubber stamp (visibly well-used). Makes any denial official and unappealable for one scene.",
-          "uses": 2
+        "pager": {
+          "desc": "Pager (active, number unknown). The Algorithm sends messages. You cannot reply.",
+          "uses": 3
         },
         "smile_tm": {
           "desc": "SMILE\u2122 tablet. Restores 1 Sanity. Compliance Citrus flavor. The Algorithm notes your consumption rate.",
@@ -68,24 +68,25 @@
       },
       "work_history": [],
       "objective_complete": false,
-      "mission": "Retroactive policy violation filed against Room 7-C. DENIED ruling must be delivered before 09:00 or it becomes appealable. CAB has ORANGE clearance and can move freely on Floor 3.",
-      "known_secret": "Every policy violation ever committed by every department. The files are organized.",
-      "is_traitor": false,
+      "mission": "ECHO cascade errors detected in Sub-Level 2 Infrastructure Terminal. Payroll crashes at 09:00 if unresolved. ICD must reach the terminal via service stairwell.",
+      "known_secret": "Which systems are actually failing and have been held together with workarounds for months.",
+      "is_traitor": true,
       "traitor_revealed": false,
       "deprecated": false,
       "debuff": 0,
       "rubber_duck_bonus": false,
       "temp_clearance": null,
-      "visitor_access": false
+      "visitor_access": false,
+      "icd_briefed": true
     }
   ],
   "game_round": 1,
-  "traitor_idx": 0,
+  "traitor_idx": 1,
   "npc_departments": [
-    "ICD",
     "NOC",
+    "CAB",
     "SDC",
-    "CIO",
+    "AEC",
     "RAR",
     "HCO",
     "TAM",
